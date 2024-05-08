@@ -6,14 +6,14 @@ const serverURL = window.location.hostname + ":" +  window.location.port;
 window.onload = () => {
    if (window.location.pathname !== '/dawe_entrega13/movil') {
 	 dibujarCanvas();
+     setupSockets();
 	const socket = io.connect(serverURL, {secure: true})
 	socket.emit('desktop-connect')
-	setupSockets();
    }else{
 	const socket = io.connect(serverURL, {secure: true})
     // register phone connection
-    socket.emit('phone-connect');
     setupSockets();
+    socket.emit('phone-connect');
     socket.on('crash', function() {
         navigator.vibrate(500);
     });
