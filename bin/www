@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('/home/ander/dawe-servidor-seguro/app');
 var debug = require('debug')('sockets:server');
 var http = require('http');
 var fs = require('fs');
@@ -15,7 +15,7 @@ var https = require('https');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3300');
 app.set('port', port);
 
 /**
@@ -35,8 +35,8 @@ server.on('listening', onListening);
 
 
 const httpsServer = https.createServer({
-    key: fs.readFileSync('key1.pem'),
-    cert: fs.readFileSync('cert1.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/dawe2024.me/privkey.pem'), // estas dos lineas hay que personalizarlas
+    cert: fs.readFileSync('/etc/letsencrypt/live/dawe2024.me/fullchain.pem')
 }, app);
 
 httpsServer
