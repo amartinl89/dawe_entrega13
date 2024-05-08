@@ -1,7 +1,10 @@
+import {setupSockets} from "./sockets.js";
+
 let spritesheet;
 
 window.onload = () => {
     dibujarCanvas();
+    setupSockets();
 };
 
 const ventana = {
