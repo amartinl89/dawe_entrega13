@@ -47,7 +47,6 @@ httpsServer
 // create a WebSocket listener for the same server
 const realtimeListener = require('socket.io')(httpsServer);
 
-
 // object to store desktop sockets
 let desktopSocket = null;
 
