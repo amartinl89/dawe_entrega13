@@ -1,4 +1,4 @@
-import {setupSockets} from "./sockets.js";
+import {setupSockets} from "./index.js";
 
 let spritesheet;
 
