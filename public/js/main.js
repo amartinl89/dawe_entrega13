@@ -24,7 +24,7 @@ function dibujarCanvas() {
         mostrarPosicionVentana(context);
     });
 
-    spritesheet.src = "../images/spritesheet.png";
+    spritesheet.src = "/dawe_entrega13/public/images/spritesheet.png";
 }
 
 function mostrarPosicionVentana(context) {
