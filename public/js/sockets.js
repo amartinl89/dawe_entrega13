@@ -24,7 +24,7 @@ realtimeListener.on('connection', function (socket) {
     });
 });
 
-exports.setupSockets = function () {
+export function setupSockets() {
     // connects to the server
     const socket = io.connect(serverURL, {secure: true});
     // sends a connect message to the server
