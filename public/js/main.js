@@ -5,7 +5,6 @@ const serverURL = window.location.hostname + ":" +  window.location.port;
 
 window.onload = () => {
     dibujarCanvas();
-    const socket = io.connect(serverURL, {secure: true});
     // register phone connection
     socket.emit('phone-connect');
 
