@@ -2,16 +2,11 @@ import {setupSockets} from "./sockets.js";
 let spritesheet;
 
 window.onload = () => {
-   if (window.location.pathname !== '/dawe_entrega13/movil') {
 	 dibujarCanvas();
      setupSockets();
 	//socket.emit('desktop-connect')
-   }else{
-    // register phone connection
-    setupSockets();
-    socket.on('crash', function() {
-        navigator.vibrate(500);
-    });
+
+    };
 
     // var update = function(id, value) {
     //     if (value) {
@@ -39,8 +34,6 @@ window.onload = () => {
     //         update('z', e.alpha ? 360 - e.alpha : null);
     //     });
     // }
-}
-};   
 
 const ventana = {
     x: 0,
