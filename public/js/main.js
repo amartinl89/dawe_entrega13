@@ -8,13 +8,13 @@ window.onload = () => {
 	 dibujarCanvas();
      const socket = io.connect(serverURL, { secure: true });
      setupSockets(socket);
-	realtimeListener.emit('desktop-connect')
+	socket.emit('desktop-connect')
    }else{
-	const realtimeListener = io.connect(serverURL, {secure: true})
+	const socket = io.connect(serverURL, {secure: true})
     // register phone connection
-    setupSockets(realtimeListener);
-    realtimeListener.emit('phone-connect');
-    realtimeListener.on('crash', function() {
+    setupSockets(socket);
+    socket.emit('phone-connect');
+    socket.on('crash', function() {
         navigator.vibrate(500);
     });
 
