@@ -40,8 +40,8 @@ const httpsServer = https.createServer({
 }, app);
 
 httpsServer
-    .listen(3030, function () {
-        console.log('Example app listening on port 3030! Go to https://dawe2024.me/')
+    .listen(443, function () {
+        console.log('Example app listening on port 443! Go to https://dawe2024.me/')
     });
 
 // create a WebSocket listener for the same server

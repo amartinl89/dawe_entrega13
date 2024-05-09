@@ -1,9 +1,5 @@
 // object to store desktop sockets
-// Importa socket.io y crea el servidor de Socket.IO
-const io = require('socket.io');
 
-// Crea el servidor de WebSocket
-const realtimeListener = io();
 export function setupSockets() {
     let desktopSocket = null;
     // the socket can be a phone or a desktop
