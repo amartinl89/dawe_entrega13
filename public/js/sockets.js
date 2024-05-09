@@ -1,6 +1,6 @@
 // object to store desktop sockets
 
-export function setupSockets() {
+export function setupSockets(realtimeListener) {
     let desktopSocket = null;
     // the socket can be a phone or a desktop
     realtimeListener.on('connection', function (socket) {
