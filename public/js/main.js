@@ -6,8 +6,8 @@ const serverURL = window.location.hostname + ":" +  window.location.port;
 window.onload = () => {
    if (window.location.pathname !== '/dawe_entrega13/movil') {
 	 dibujarCanvas();
-	const realtimeListener = io.connect(serverURL, {secure: true})
-    setupSockets(realtimeListener);
+     const socket = io.connect(serverURL, { secure: true });
+     setupSockets(socket);
 	realtimeListener.emit('desktop-connect')
    }else{
 	const realtimeListener = io.connect(serverURL, {secure: true})
