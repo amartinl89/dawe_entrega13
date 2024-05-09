@@ -1,7 +1,9 @@
 // object to store desktop sockets
-
+import { io } from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
 export function setupSockets(realtimeListener) {
     let desktopSocket = null;
+    const serverURL = window.location.hostname + ":" +  window.location.port;
+    const realtimeListener = io.connect(serverURL, { secure: true });
     // the socket can be a phone or a desktop
     realtimeListener.on('connection', function (socket) {
         // receives a connect message from a desktop (for this example, we only have one yet)

@@ -1,19 +1,14 @@
 import {setupSockets} from "./sockets.js";
-import { io } from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
 let spritesheet;
-const serverURL = window.location.hostname + ":" +  window.location.port;
 
 window.onload = () => {
    if (window.location.pathname !== '/dawe_entrega13/movil') {
 	 dibujarCanvas();
-     const socket = io.connect(serverURL, { secure: true });
-     setupSockets(socket);
-	socket.emit('desktop-connect')
+     setupSockets();
+	//socket.emit('desktop-connect')
    }else{
-	const socket = io.connect(serverURL, {secure: true})
     // register phone connection
-    setupSockets(socket);
-    socket.emit('phone-connect');
+    setupSockets();
     socket.on('crash', function() {
         navigator.vibrate(500);
     });
