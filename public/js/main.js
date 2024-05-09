@@ -1,10 +1,13 @@
-import {setupSockets} from "./sockets.js";
+//import {setupSockets} from "./sockets.js";
+const setupSockets = require('./sockets');
+
+const realtimeListener = require('socket.io')(httpsServer);
 let spritesheet;
 
 window.onload = () => {
    if (window.location.pathname !== '/dawe_entrega13/movil') {
 	 dibujarCanvas();
-     setupSockets();
+     setupSockets(realtimeListener);
 	//socket.emit('desktop-connect')
    }else{
     // register phone connection
