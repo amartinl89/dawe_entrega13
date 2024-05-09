@@ -1,6 +1,6 @@
 // sockets.js
 
-export function setupSockets(realtimeListener) {
+export function setupSockets() {
     let desktopSocket = null;
 
     realtimeListener.on('connection', (socket) => {
