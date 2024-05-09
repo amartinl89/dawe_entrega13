@@ -1,6 +1,6 @@
 // object to store desktop sockets
 import { io } from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
-export function setupSockets(realtimeListener) {
+export function setupSockets() {
     let desktopSocket = null;
     const serverURL = window.location.hostname + ":" +  window.location.port;
     const realtimeListener = io.connect(serverURL, { secure: true });
