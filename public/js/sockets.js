@@ -1,4 +1,4 @@
-const setupSockets = () => {
+const setupSockets = (realtimeListener) => {
     let desktopSocket = null;
 
     realtimeListener.on('connection', (socket) => {
