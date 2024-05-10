@@ -30,34 +30,24 @@ window.onload = () => {
 
 	//socket.emit('desktop-connect')
 
+
+
+        // Mover la ventana deslizante en función del ángulo recibido
+        if (angulo < 0) {
+            // Mover hacia la izquierda
+            moverVentana({ key: 'ArrowLeft' });
+//            simulateKeyEvent('ArrowLeft');
+        } else if (angulo > 0) {
+            // Mover hacia la derecha
+            moverVentana({ key: 'ArrowRight' });
+            //simulateKeyEvent('ArrowRight');
+
+        } else {
+        // No hacer nada (mantener la ventana en su posición actual)
+        }
+    });
+    dibujarCanvas();
     };
-
-    // var update = function(id, value) {
-    //     if (value) {
-    //         value = Math.floor(value);
-    //         var rotate = 'rotate' + id.toUpperCase() + '(' + (id === 'x' ? -value : value )+ 'deg)';
-
-    //         id = '#' + id;
-    //         $(id).html(value + '&deg;');
-
-    //         id += '-icon';
-    //         $(id).css('transform', rotate);
-    //         $(id).css('-webkit-transform', rotate);
-    //     }
-    // };
-
-    // if (window.DeviceOrientationEvent) {
-    //     window.addEventListener('deviceorientation', function(e) {
-
-    //         socket.emit('phone-move', { alpha: e.alpha, beta: e.beta, gamma: e.gamma});
-
-    //         $('#frame').text((e.absolute ? 'Earth' : 'arbitrary') + ' coordinates frame');
-
-    //         update('x', e.beta);
-    //         update('y', e.gamma);
-    //         update('z', e.alpha ? 360 - e.alpha : null);
-    //     });
-    // }
 
 const ventana = {
     x: 0,
@@ -116,11 +106,15 @@ function moverVentana(event) {
         case 'ArrowLeft':
             if (ventana.x - ventana.speed >= 0) {
                 ventana.x -= ventana.speed;
+            }else{
+                socket.emit('crash');
             }
             break;
         case 'ArrowRight':
             if (ventana.x + ventana.width + ventana.speed <= spritesheet.width) {
                 ventana.x += ventana.speed;
+            }else{
+                socket.emit('crash');
             }
             break;
     }
@@ -142,7 +136,7 @@ function zoomIn(srcX, srcY, srcWidth, srcHeight, destX, destY) {
     var canvas = document.getElementById("lienzo");
     var context = canvas.getContext("2d");
 
-    var zoomFactor = 2; 
+    var zoomFactor = 2;
 
     context.drawImage(
         canvas,
@@ -150,5 +144,6 @@ function zoomIn(srcX, srcY, srcWidth, srcHeight, destX, destY) {
         destX, destY, srcWidth * zoomFactor, srcHeight * zoomFactor
     );
 }
+
 
 
