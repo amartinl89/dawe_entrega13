@@ -27,6 +27,9 @@ window.onload = function(){
 
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(e) {
+            socket.on('parar',()  => {
+                socket.emit('crash');
+            });
             socket.emit('phone-move', { alpha: e.alpha, beta: e.beta, gamma: e.gamma});
 
             $('#frame').text((e.absolute ? 'Earth' : 'arbitrary') + ' coordinates frame');

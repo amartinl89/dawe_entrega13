@@ -1,4 +1,4 @@
-import {setupSockets, emitCrash} from "./sockets.js";
+import {setupSockets} from "./sockets.js";
 let spritesheet;
 let socket;
 let angulo
@@ -12,17 +12,17 @@ window.onload = () => {
         angulo = data;
 
         // Mover la ventana deslizante en función del ángulo recibido
-        if (angulo < 0 && ventana.x - ventana.speed >= 0) {
+        if (angulo < 0) {
             // Mover hacia la izquierda
             moverVentana({ key: 'ArrowLeft' });
 //            simulateKeyEvent('ArrowLeft');
-        } else if (angulo > 0 && ventana.x - ventana.speed >= 0) {
+        } else if (angulo > 0) {
             // Mover hacia la derecha
             moverVentana({ key: 'ArrowRight' });
             //simulateKeyEvent('ArrowRight');
 
         } else {
-            socket.emit('crash');
+        // No hacer nada (mantener la ventana en su posición actual)
         }
     });
     dibujarCanvas();
@@ -44,7 +44,6 @@ window.onload = () => {
 
         } else {
         // No hacer nada (mantener la ventana en su posición actual)
-        
         }
     dibujarCanvas();
     };
@@ -107,15 +106,16 @@ function moverVentana(event) {
             if (ventana.x - ventana.speed >= 0) {
                 ventana.x -= ventana.speed;
             }else{
-               // socket.emit('crash');
-	
+              // socket.emit('crash');
+                socket.emit('parar');
             }
             break;
         case 'ArrowRight':
             if (ventana.x + ventana.width + ventana.speed <= spritesheet.width) {
                 ventana.x += ventana.speed;
             }else{
-               // socket.emit('crash');
+               //socket.emit('crash');
+               socket.emit('parar');
             }
             break;
     }
