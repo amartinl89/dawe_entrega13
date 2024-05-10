@@ -6,6 +6,3 @@ export function setupSockets() {
     socket.emit('desktop-connect');
     return socket;
 };
-export function emitCrash(socket) {
-    socket.emit('crash');
-};

@@ -12,17 +12,17 @@ window.onload = () => {
         angulo = data;
 
         // Mover la ventana deslizante en función del ángulo recibido
-        if (angulo < 0) {
+        if (angulo < 0 && ventana.x - ventana.speed >= 0) {
             // Mover hacia la izquierda
             moverVentana({ key: 'ArrowLeft' });
 //            simulateKeyEvent('ArrowLeft');
-        } else if (angulo > 0) {
+        } else if (angulo > 0 && ventana.x - ventana.speed >= 0) {
             // Mover hacia la derecha
             moverVentana({ key: 'ArrowRight' });
             //simulateKeyEvent('ArrowRight');
 
         } else {
-        // No hacer nada (mantener la ventana en su posición actual)
+            socket.emit('crash');
         }
     });
     dibujarCanvas();
@@ -44,6 +44,7 @@ window.onload = () => {
 
         } else {
         // No hacer nada (mantener la ventana en su posición actual)
+        
         }
     dibujarCanvas();
     };
@@ -106,15 +107,15 @@ function moverVentana(event) {
             if (ventana.x - ventana.speed >= 0) {
                 ventana.x -= ventana.speed;
             }else{
-                //socket.emit('crash');
-                emitCrash(socket);
+               // socket.emit('crash');
+	
             }
             break;
         case 'ArrowRight':
             if (ventana.x + ventana.width + ventana.speed <= spritesheet.width) {
                 ventana.x += ventana.speed;
             }else{
-                emitCrash(socket);
+               // socket.emit('crash');
             }
             break;
     }
