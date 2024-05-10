@@ -45,7 +45,6 @@ window.onload = () => {
         } else {
         // No hacer nada (mantener la ventana en su posición actual)
         }
-    });
     dibujarCanvas();
     };
 
