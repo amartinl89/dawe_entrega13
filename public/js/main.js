@@ -1,4 +1,4 @@
-import {setupSockets} from "./sockets.js";
+import {setupSockets, emitCrash} from "./sockets.js";
 let spritesheet;
 let socket;
 let angulo
@@ -106,15 +106,15 @@ function moverVentana(event) {
             if (ventana.x - ventana.speed >= 0) {
                 ventana.x -= ventana.speed;
             }else{
-                socket.emit('crash');
-	
+                //socket.emit('crash');
+                emitCrash(socket);
             }
             break;
         case 'ArrowRight':
             if (ventana.x + ventana.width + ventana.speed <= spritesheet.width) {
                 ventana.x += ventana.speed;
             }else{
-                socket.emit('crash');
+                emitCrash(socket);
             }
             break;
     }
