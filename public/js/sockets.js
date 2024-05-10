@@ -26,4 +26,5 @@ export function setupSockets() {
     //     });
     // });
     socket.emit('desktop-connect');
+    return socket;
 };

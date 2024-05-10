@@ -1,39 +1,31 @@
 import {setupSockets} from "./sockets.js";
 let spritesheet;
+let socket;
 
 window.onload = () => {
-	 dibujarCanvas();
-     setupSockets();
-	//socket.emit('desktop-connect')
+     socket = setupSockets();
+     console.log(socket);
+     // Manejar el evento 'phone-move' para recibir los datos de ángulo de inclinación
+     socket.on('phone-move', (data) => {
+        // Extraer el ángulo de inclinación en el eje beta
+        const angulo = data;
 
+        // Mover la ventana deslizante en función del ángulo recibido
+        if (angulo < 0) {
+            // Mover hacia la izquierda
+            moverVentana({ key: 'ArrowLeft' });
+//            simulateKeyEvent('ArrowLeft');
+        } else if (angulo > 0) {
+            // Mover hacia la derecha
+            moverVentana({ key: 'ArrowRight' });
+            //simulateKeyEvent('ArrowRight');
+
+        } else {
+        // No hacer nada (mantener la ventana en su posición actual)
+        }
+    });
+    dibujarCanvas();
     };
-
-    // var update = function(id, value) {
-    //     if (value) {
-    //         value = Math.floor(value);
-    //         var rotate = 'rotate' + id.toUpperCase() + '(' + (id === 'x' ? -value : value )+ 'deg)';
-
-    //         id = '#' + id;
-    //         $(id).html(value + '&deg;');
-
-    //         id += '-icon';
-    //         $(id).css('transform', rotate);
-    //         $(id).css('-webkit-transform', rotate);
-    //     }
-    // };
-
-    // if (window.DeviceOrientationEvent) {
-    //     window.addEventListener('deviceorientation', function(e) {
-
-    //         socket.emit('phone-move', { alpha: e.alpha, beta: e.beta, gamma: e.gamma});
-
-    //         $('#frame').text((e.absolute ? 'Earth' : 'arbitrary') + ' coordinates frame');
-
-    //         update('x', e.beta);
-    //         update('y', e.gamma);
-    //         update('z', e.alpha ? 360 - e.alpha : null);
-    //     });
-    // }
 
 const ventana = {
     x: 0,
@@ -77,7 +69,8 @@ function dibujarVentana() {
 }
 
 function moverVentana(event) {
-    switch (event.key) {
+ console.log("entra");
+ switch (event.key) {
         case 'ArrowUp':
             if (ventana.y - ventana.speed >= 0) {
                 ventana.y -= ventana.speed;
@@ -100,17 +93,24 @@ function moverVentana(event) {
             break;
     }
 
- 
+
     dibujarCanvas();
-    
+
     zoomIn();
+}
+
+function simulateKeyEvent(key) {
+    // Simular evento de teclado de pulsación de tecla
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: key }));
+    // Simular evento de teclado de liberación de tecla (levantar el dedo)
+    document.dispatchEvent(new KeyboardEvent('keyup', { key: key }));
 }
 
 function zoomIn(srcX, srcY, srcWidth, srcHeight, destX, destY) {
     var canvas = document.getElementById("lienzo");
     var context = canvas.getContext("2d");
 
-    var zoomFactor = 2; 
+    var zoomFactor = 2;
 
     context.drawImage(
         canvas,
@@ -118,5 +118,6 @@ function zoomIn(srcX, srcY, srcWidth, srcHeight, destX, destY) {
         destX, destY, srcWidth * zoomFactor, srcHeight * zoomFactor
     );
 }
+
 
 
