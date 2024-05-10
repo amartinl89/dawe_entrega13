@@ -106,14 +106,18 @@ function moverVentana(event) {
             if (ventana.x - ventana.speed >= 0) {
                 ventana.x -= ventana.speed;
             }else{
-                socket.emit('crash');
+                socket.on('crash', function() {
+                    navigator.vibrate(500);
+                });
             }
             break;
         case 'ArrowRight':
             if (ventana.x + ventana.width + ventana.speed <= spritesheet.width) {
                 ventana.x += ventana.speed;
             }else{
-                socket.emit('crash');
+                socket.on('crash', function() {
+                    navigator.vibrate(500);
+                });
             }
             break;
     }
