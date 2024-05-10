@@ -1,9 +1,33 @@
 import {setupSockets} from "./sockets.js";
 let spritesheet;
+let socket;
 
 window.onload = () => {
-	 dibujarCanvas();
-     setupSockets();
+//     dibujarCanvas();
+     socket = setupSockets();
+     console.log(socket);
+     // Manejar el evento 'phone-move' para recibir los datos de ángulo de inclinación
+     socket.on('phone-move', (data) => {
+        // Extraer el ángulo de inclinación en el eje beta
+        const angulo = data;
+
+        // Mover la ventana deslizante en función del ángulo recibido
+        if (angulo < 0) {
+            // Mover hacia la izquierda
+            moverVentana({ key: 'ArrowLeft' });
+//            simulateKeyEvent('ArrowLeft');
+        } else if (angulo > 0) {
+            // Mover hacia la derecha
+            moverVentana({ key: 'ArrowRight' });
+            //simulateKeyEvent('ArrowRight');
+
+        } else {
+        // No hacer nada (mantener la ventana en su posición actual)
+        }
+    });
+    dibujarCanvas();
+
+
 	//socket.emit('desktop-connect')
 
     };
@@ -77,7 +101,8 @@ function dibujarVentana() {
 }
 
 function moverVentana(event) {
-    switch (event.key) {
+ console.log("entra");
+ switch (event.key) {
         case 'ArrowUp':
             if (ventana.y - ventana.speed >= 0) {
                 ventana.y -= ventana.speed;
@@ -100,10 +125,17 @@ function moverVentana(event) {
             break;
     }
 
- 
+
     dibujarCanvas();
-    
+
     zoomIn();
+}
+
+function simulateKeyEvent(key) {
+    // Simular evento de teclado de pulsación de tecla
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: key }));
+    // Simular evento de teclado de liberación de tecla (levantar el dedo)
+    document.dispatchEvent(new KeyboardEvent('keyup', { key: key }));
 }
 
 function zoomIn(srcX, srcY, srcWidth, srcHeight, destX, destY) {
