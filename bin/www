@@ -49,7 +49,7 @@ const realtimeListener = require('socket.io')(httpsServer);
 
 // object to store desktop sockets
 let desktopSocket = null;
-
+let phoneSocket = null;
 // the socket can be a phone or a desktop
 realtimeListener.on('connection', function (socket) {
 
@@ -65,6 +65,7 @@ realtimeListener.on('connection', function (socket) {
         if (desktopSocket) {
             // ... informs desktop that a phone has connected
             desktopSocket.emit('phone-connect');
+            phoneSocket = socket;
         }
     });
 
@@ -75,9 +76,9 @@ realtimeListener.on('connection', function (socket) {
             desktopSocket.emit('phone-move', data.beta);
     });
 	socket.on("crash", function () {
-      	 if (desktopSocket){
+      	 if (desktopSocket && phoneSocket){
 		    console.log("Vibración");
-           socket.emit("crash");
+           phoneSocket.emit("crash");
          }
 	});
 });
