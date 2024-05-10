@@ -1,15 +1,14 @@
 const serverURL = window.location.hostname + ":" +  window.location.port;
-import { io } from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
+
 window.onload = function(){
+
     const socket = io.connect(serverURL, {secure: true});
     // register phone connection
-
     socket.emit('phone-connect');
-	socket.on('crash',()  => {
-		console.log("Evento 'crash' recibido en el cliente móvil");
-       		 navigator.vibrate(500);
-   	 });
 
+    socket.on('crash', function() {
+        navigator.vibrate(500);
+    });
 
     var update = function(id, value) {
         if (value) {
@@ -27,12 +26,11 @@ window.onload = function(){
 
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(e) {
-            socket.on('parar',()  => {
-                socket.emit('crash');
-            });
+
             socket.emit('phone-move', { alpha: e.alpha, beta: e.beta, gamma: e.gamma});
 
             $('#frame').text((e.absolute ? 'Earth' : 'arbitrary') + ' coordinates frame');
+
             update('x', e.beta);
             update('y', e.gamma);
             update('z', e.alpha ? 360 - e.alpha : null);

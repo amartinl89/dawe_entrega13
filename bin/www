@@ -80,11 +80,6 @@ realtimeListener.on('connection', function (socket) {
            socket.emit("crash");
          }
 	});
-    socket.on('parar', function () {
-      	 if (desktopSocket){
-        console.log("parar");
-           socket.emit('parar');}
-    });
 });
 
 
