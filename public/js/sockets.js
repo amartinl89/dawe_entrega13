@@ -1,8 +1,8 @@
 // sockets.js
 import { io } from "https://cdn.socket.io/4.7.4/socket.io.esm.min.js";
-let desktopSocket = null;
+const serverURL = window.location.hostname + ":" +  window.location.port;
 export function setupSockets() {
-    const socket = io.connect('https://dawe2024.me:443');
+    const socket = io.connect(serverURL, {secure: true});
     // socket.on('connect', () => {
     //     socket.on("desktop-connect", function () {
     //         console.log("Desktop Connected");
