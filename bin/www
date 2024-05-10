@@ -74,6 +74,11 @@ realtimeListener.on('connection', function (socket) {
         if (desktopSocket)
             desktopSocket.emit('phone-move', data.beta);
     });
+	socket.on('crash', function () {
+		console.log("Vibración");
+        if (desktopSocket)
+            desktopSocket.emit('crash');
+	});
 });
 
 

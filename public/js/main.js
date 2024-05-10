@@ -1,7 +1,7 @@
 import {setupSockets} from "./sockets.js";
 let spritesheet;
 let socket;
-
+let angulo
 window.onload = () => {
 //     dibujarCanvas();
      socket = setupSockets();
@@ -9,7 +9,7 @@ window.onload = () => {
      // Manejar el evento 'phone-move' para recibir los datos de ángulo de inclinación
      socket.on('phone-move', (data) => {
         // Extraer el ángulo de inclinación en el eje beta
-        const angulo = data;
+        angulo = data;
 
         // Mover la ventana deslizante en función del ángulo recibido
         if (angulo < 0) {
